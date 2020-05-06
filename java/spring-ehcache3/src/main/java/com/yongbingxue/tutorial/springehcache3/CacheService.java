@@ -27,7 +27,7 @@ public class CacheService {
             .withCache(CACHE_NAME,
                 CacheConfigurationBuilder
                     .newCacheConfigurationBuilder(Long.class, String.class,
-                        ResourcePoolsBuilder.heap(2000)))
+                        ResourcePoolsBuilder.heap(10)))
             .build();
         cacheManager.init();
 
