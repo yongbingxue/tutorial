@@ -11,7 +11,7 @@ import com.yongbingxue.tutorial.springaop.annotation.AnnotationAOP;
 public class SpringAOPController {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    @AnnotationAOP
+    @AnnotationAOP(value="annotationValue")
     @GetMapping("/annotation")
     public void annotationAOP() {
         logger.info("annotation");

@@ -8,14 +8,19 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
+import com.yongbingxue.tutorial.springaop.annotation.AnnotationAOP;
+
 @Aspect
 @Component
 public class CustomAspects {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    @Before("@annotation(com.yongbingxue.tutorial.springaop.annotation.AnnotationAOP)")
-    public void annotationAdvice() {
+    @Before("@annotation(annotationAOP)")
+    public void annotationAdvice(AnnotationAOP annotationAOP) {
         logger.info("annotationAdvice");
+
+        String value = annotationAOP.value();
+        logger.info("value : {}", value);
     }
 
     @Around("execution(public * com.yongbingxue.tutorial.springaop..*.*(..))")
