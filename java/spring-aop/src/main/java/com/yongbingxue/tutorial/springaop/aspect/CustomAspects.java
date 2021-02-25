@@ -1,6 +1,7 @@
 package com.yongbingxue.tutorial.springaop.aspect;
 
 import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
@@ -23,6 +24,14 @@ public class CustomAspects {
         logger.info("value : {}", value);
     }
 
+    @After("@annotation(annotationAOP)")
+    public void afterAnnotationAdvice(AnnotationAOP annotationAOP) {
+        logger.info("afterAnnotationAdvice");
+
+        String value = annotationAOP.value();
+        logger.info("value : {}", value);
+    }
+
     @Around("execution(public * com.yongbingxue.tutorial.springaop..*.*(..))")
     public Object anyPublicOperationInSpringAOP(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
         logger.info("before anyPublicOperationInSpringAOP");
@@ -30,6 +39,17 @@ public class CustomAspects {
         Object retValue = proceedingJoinPoint.proceed();
 
         logger.info("after anyPublicOperationInSpringAOP");
+
+        return retValue;
+    }
+
+    @Around("@annotation(com.yongbingxue.tutorial.springaop.annotation.AnnotationAOP)")
+    public Object aroundAnnotation(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
+        logger.info("before aroundAnnotation");
+
+        Object retValue = proceedingJoinPoint.proceed();
+
+        logger.info("after aroundAnnotation");
 
         return retValue;
     }

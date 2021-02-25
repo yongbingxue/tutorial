@@ -31,7 +31,7 @@ public class GitHubService {
     @PostConstruct
     public void init() {
         Retrofit retrofit = new Retrofit.Builder()
-            .baseUrl("https://api.github.com/")
+            .baseUrl("http://localhost:9999")
             .addConverterFactory(JacksonConverterFactory.create(objectMapper))
             .build();
 
@@ -47,6 +47,28 @@ public class GitHubService {
             logger.error("getApi exception", e);
         }
         return response == null ? objectMapper.createObjectNode() : response.body();
+    }
+
+    public Response<String> get200() {
+        logger.info("get200");
+        Response<String> response = null;
+        try {
+            response = service.get200().execute();
+        } catch (IOException e) {
+            logger.error("get200 exception", e);
+        }
+        return response;
+    }
+
+    public Response<String> get403() {
+        logger.info("get403");
+        Response<String> response = null;
+        try {
+            response = service.get403().execute();
+        } catch (IOException e) {
+            logger.error("get403 exception", e);
+        }
+        return response;
     }
 
 }

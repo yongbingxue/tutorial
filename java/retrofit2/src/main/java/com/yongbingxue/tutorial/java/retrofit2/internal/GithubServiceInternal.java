@@ -13,4 +13,16 @@ public interface GithubServiceInternal {
     @GET("/")
     Call<JsonNode> getApi();
 
+    @Headers({
+            "Content-Type: application/json"
+    })
+    @GET("/200")
+    Call<String> get200();
+
+    @Headers({
+            "Content-Type: application/json"
+    })
+    @GET("/403")
+    Call<String> get403();
+
 }
