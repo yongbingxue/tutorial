@@ -1,0 +1,9 @@
+{
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc --watch"
+  },
+  "devDependencies": {
+    "@tsconfig/node20": "^20.1.4"
+  }
+}

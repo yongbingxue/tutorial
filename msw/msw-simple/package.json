@@ -1,0 +1,19 @@
+{
+  "name": "msw",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "implement the msw getting started tutorial\r https://mswjs.io/docs/getting-started",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "node-fetch": "^3.3.2"
+  },
+  "devDependencies": {
+    "msw": "file:"
+  }
+}
