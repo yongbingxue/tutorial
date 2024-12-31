@@ -1,14 +1,19 @@
-import React from 'react'
-import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom'
+import React from "react";
+import {
+  Navigate,
+  Route,
+  BrowserRouter as Router,
+  Routes,
+} from "react-router-dom";
 
-import { useAppSelector } from './app/hooks.ts'
-import { Navbar } from './components/Navbar'
-import { LoginPage } from './features/auth/LoginPage'
-import { PostsMainPage } from './features/posts/PostsMainPage'
-import { SinglePostPage } from './features/posts/SinglePostPage'
-import { EditPostForm } from './features/posts/EditPostForm'
+import { useAppSelector } from "./app/hooks";
+import { Navbar } from "./components/Navbar";
+import { LoginPage } from "./features/auth/LoginPage";
+import { EditPostForm } from "./features/posts/EditPostForm";
+import { PostsMainPage } from "./features/posts/PostsMainPage";
+import { SinglePostPage } from "./features/posts/SinglePostPage";
 
-import { selectCurrentUsername } from './features/auth/authSlice'
+import { selectCurrentUsername } from "./features/auth/authSlice";
 
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   const username = useAppSelector(selectCurrentUsername);
