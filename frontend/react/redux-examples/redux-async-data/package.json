@@ -19,6 +19,7 @@
     "react-redux": "^9.2.0",
     "react-router-dom": "^6",
     "react-tiny-toast": "^2.0.1",
+    "redux-async-data": "file:",
     "tmp": "file:"
   },
   "devDependencies": {
