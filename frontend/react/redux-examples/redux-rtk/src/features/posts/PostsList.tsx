@@ -1,20 +1,13 @@
-import React, { useEffect } from "react";
+import classnames from "classnames";
+import React, { useMemo } from "react";
 import { Link } from "react-router-dom";
-
-import { useAppDispatch, useAppSelector } from "@/app/hooks";
 
 import { Spinner } from "@/components/Spinner";
 import { TimeAgo } from "@/components/TimeAgo";
 
-import { PostAuthor } from "./PostAuthor";
+import { Post, useGetPostsQuery } from "@/features/api/apiSlice";
 
-import {
-  Post,
-  fetchPosts,
-  selectAllPosts,
-  selectPostsError,
-  selectPostsStatus,
-} from "./postsSlice";
+import { PostAuthor } from "./PostAuthor";
 import { ReactionButtons } from "./ReactionButtons";
 
 interface PostExcerptProps {
@@ -38,32 +31,37 @@ function PostExcerpt({ post }: PostExcerptProps) {
 }
 
 export const PostsList = () => {
-  const dispatch = useAppDispatch();
-  const posts = useAppSelector(selectAllPosts);
-  const postStatus = useAppSelector(selectPostsStatus);
-  const postsError = useAppSelector(selectPostsError);
+  const {
+    data: posts = [],
+    isLoading,
+    isFetching,
+    isSuccess,
+    isError,
+    error,
+  } = useGetPostsQuery();
 
-  useEffect(() => {
-    if (postStatus === "idle") {
-      dispatch(fetchPosts());
-    }
-  }, [postStatus, dispatch]);
+  const sortedPosts = useMemo(() => {
+    const sortedPosts = posts.slice();
+    sortedPosts.sort((a, b) => b.date.localeCompare(a.date));
+    return sortedPosts;
+  }, [posts]);
 
   let content: React.ReactNode;
 
-  if (postStatus === "pending") {
+  if (isLoading) {
     content = <Spinner text="Loading..." />;
-  } else if (postStatus === "succeeded") {
-    // Sort posts in reverse chronological order by datetime string
-    const orderedPosts = posts
-      .slice()
-      .sort((a, b) => b.date.localeCompare(a.date));
-
-    content = orderedPosts.map((post) => (
+  } else if (isSuccess) {
+    const renderedPosts = sortedPosts.map((post) => (
       <PostExcerpt key={post.id} post={post} />
     ));
-  } else if (postStatus === "rejected") {
-    content = <div>{postsError}</div>;
+
+    const containerClassname = classnames("posts-container", {
+      disabled: isFetching,
+    });
+
+    content = <div className={containerClassname}>{renderedPosts}</div>;
+  } else if (isError) {
+    content = <div>{error.toString()}</div>;
   }
 
   return (
