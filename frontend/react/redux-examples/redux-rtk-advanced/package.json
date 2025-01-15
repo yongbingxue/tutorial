@@ -1,5 +1,5 @@
 {
-  "name": "redux-rtk-advanced",
+  "name": "redux-rtk",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -22,8 +22,7 @@
     "react-redux": "^9",
     "react-router-dom": "^6",
     "react-tiny-toast": "^2.0.1",
-    "redux-rtk": "file:",
-    "redux-rtk-advanced": "file:"
+    "redux-rtk": "file:"
   },
   "devDependencies": {
     "@eslint/js": "^9.15.0",
