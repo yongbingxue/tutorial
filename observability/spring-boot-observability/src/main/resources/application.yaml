@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: sprint-boot-observability
+
+otel:
+  exporter:
+    otlp:
+      metrics:
+        endpoint: "http://10.198.28.189:4317"
+        protocol: grpc
+
+
+
+  logs:
+    exporter: none
+  metric:
+    export:
+      interval: 5000
